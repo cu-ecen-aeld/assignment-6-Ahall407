@@ -8,7 +8,7 @@ SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-Ahall407.gi
 
 PV = "1.0+git${SRCPV}"
 # TODO: set to reference a specific commit hash in your assignment repo
-SRCREV = "622636a259b2da67c09aebaa17d801d847629f0b"
+SRCREV = "4debdc632e8d99b0322d42f1b3a2450f726faa8d"
 
 # This sets your staging directory based on WORKDIR, where WORKDIR is defined at 
 # https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-WORKDIR
@@ -18,15 +18,12 @@ S = "${WORKDIR}/git/server"
 
 # TODO: Add the aesdsocket application and any other files you need to install
 # See https://git.yoctoproject.org/poky/plain/meta/conf/bitbake.conf?h=kirkstone
-#FILES:${PN} += "${bindir}/aesdsocket"
 
 FILES:${PN} += "${bindir}/aesdsocket"
-FILES:${PN} += "${sysconfdir}/init.d/aesdsocket-start-stop.sh"
 FILES:${PN} += "${bindir}/aesdsocket-start-stop.sh"
 
 # TODO: customize these as necessary for any libraries you need for your application
 # (and remove comment)
-#TARGET_LDFLAGS += "-pthread -lrt"
 
 TARGET_LDFLAGS += "-pthread -lrt"
 RDEPENDS:${PN} += "libgcc"
@@ -46,7 +43,6 @@ do_compile () {
 inherit update-rc.d
 INITSCRIPT_PACKAGES = "${PN}"
 INITSCRIPT_NAME:${PN} = "aesdsocket-start-stop.sh"
-INITSCRIPT_PARAMS = "start 99 5 2 . stop 20 0 1 6 ."
 
 do_install () {
 	# TODO: Install your binaries/scripts here.
